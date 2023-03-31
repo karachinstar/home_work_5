@@ -8,13 +8,25 @@
 from random import randint
 
 
-def guess_num(a, c=1):
-    b = int(input('Введите число - '))
-    if c == 10:
+def check_numbers(x):
+    try:
+        if isinstance(x, int) == 0:
+            return int(x)
+    except ValueError:
+        print('введено не числовое значение или дробное')
+        guess_num()
+
+
+def guess_num(a=randint(0, 101), c=1):
+    b = check_numbers(input('Введите число - '))
+    # print(a)
+    if c >= 10:
         print('Вы не отгадали число')
+        raise SystemExit
     else:
         if b == a:
             print('Вы отгадали число')
+            raise SystemExit
         elif b < a:
             print('Ваше число меньше загаданного')
             return guess_num(a, c + 1)
@@ -23,5 +35,5 @@ def guess_num(a, c=1):
             return guess_num(a, c + 1)
 
 
-print('Компьютер загадал число, попробуй отгадатm')
-guess_num(randint(0, 101))
+print('Компьютер загадал число, попробуй отгадать')
+guess_num()
