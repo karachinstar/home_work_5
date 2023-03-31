@@ -7,7 +7,7 @@
 # Подсказка:
 # Вариант исполнения:
 # - условие рекурсивного вызова - введена операция +, -, *, / - ШАГ РЕКУРСИИ
-# - условие завершения рекурсии - введена операция 0 - БАЗОВЫЙ СЛУЧАЙ
+# - условие завершения рекурсии - введена операция 0 - БАЗОВЫЙ СЛУЧАЙ.
 # Решите через рекурсию. В задании нельзя применять циклы.
 # Пример:
 # Введите операцию (+, -, *, / или 0 для выхода): +
@@ -19,45 +19,46 @@
 # Вы вместо трехзначного числа ввели строку (((. Исправьтесь
 # Введите операцию (+, -, *, / или 0 для выхода):
 
-def calculate(a, b, operator):
-    if operator == '+':
-        return a + b
-    elif operator == '-':
-        return a - b
-    elif operator == '*':
-        return a * b
+def numbers(x):
+    try:
+        if isinstance(float(x), (int, float)) == 1:
+            return float(x)
+    except ValueError:
+        print('введено не числовое значение')
+        calculate(input('Введите операцию - +, -, /, или * - '))
+
+
+def calculate(a):
+    if a == '0':
+        print('Вы вышли из калькулятора')
     else:
-        return a / b
+        if a == '/':
+            num_one = numbers(input('введите первое число - '))
+            num_two = numbers(input('введите второе число - '))
+            if num_two == 0:
+                print('нельзя делить на 0')
+                calculate(input('Введите операцию - +, -, /, или * - '))
+            else:
+                print(f'{num_one} / {num_two} = {num_one / num_two}')
+                calculate(input('Введите операцию - +, -, /, или * - '))
+        elif a == '*':
+            num_one = numbers(float(input('введите первое число - ')))
+            num_two = numbers(float(input('введите второе число - ')))
+            print(f'{num_one} * {num_two} = {num_one * num_two}')
+            calculate(input('Введите операцию - +, -, /, или * - '))
+        elif a == '-':
+            num_one = numbers(float(input('введите первое число - ')))
+            num_two = numbers(float(input('введите второе число - ')))
+            print(f'{num_one} - {num_two} = {num_one - num_two}')
+            calculate(input('Введите операцию - +, -, /, или * - '))
+        elif a == '+':
+            num_one = numbers(float(input('введите первое число - ')))
+            num_two = numbers(float(input('введите второе число - ')))
+            print(f'{num_one} + {num_two} = {num_one + num_two}')
+            calculate(input('Введите операцию - +, -, /, или * - '))
+        else:
+            print('Введен не верный математический знак, попробуйте снова')
+            calculate(input('Введите операцию - +, -, /, или * - '))
 
 
-def is_correct_operator(operator):
-    return operator == '0' or operator == '+' or operator == '-' or operator == '*' or operator == '/'
-
-
-def get_operator():
-    return input('operator: ')
-
-
-def run_calculator(a=None, b=None):
-    if a is None:
-        a = float(input('a: '))
-    if b is None:
-        b = float(input('b: '))
-    operator = get_operator()
-
-    if not is_correct_operator(operator):
-        print('Wrong operator')
-        run_calculator(a, b)
-        return
-    elif operator == '0':
-        return
-    elif operator == '/' and b == 0:
-        print('No division by zero')
-        run_calculator()
-        return
-    else:
-        print(calculate(a, b, operator))
-        run_calculator()
-
-
-run_calculator()
+calculate(input('Введите операцию - +, -, /, или * - '))
