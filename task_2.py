@@ -13,6 +13,15 @@
 # Введите число: 123
 # Количество четных и нечетных цифр в числе равно: (1, 2)
 
+def check_numbers(x):
+    try:
+        if isinstance(x, int) == 0:
+            return my_number(int(x))
+    except ValueError:
+        print('введено не числовое значение или дробное')
+        check_numbers(input('Введите число - '))
+
+
 def my_number(a, even=0, odd=0):
     if a == 0:
         print(f'В числе четных чисел {even}, а нечетных: {odd}')
@@ -26,4 +35,4 @@ def my_number(a, even=0, odd=0):
         return my_number(a, even, odd)
 
 
-my_number(int(input('Введите число - ')))
+check_numbers(input('Введите число - '))
